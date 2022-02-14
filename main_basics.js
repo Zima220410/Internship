@@ -188,10 +188,9 @@ let findFactorialMemo = (function () {
         } else {
             if (i === 1) {
                 value = i;
-            } else {
-                value = i * memoryCreation(i - 1);
-                memo[i] = value;
             }
+            value = i * memoryCreation(i - 1);
+            memo[i] = value;
         }
         return value;
     }
@@ -218,40 +217,19 @@ let myFilterSum = (collection, callback) => {
 // 9. Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные),
 // реализовать с помощью рекурсии для одномерного массива.
 
-function sumElArrMultiplaceTwo(arr) {
-    return sum(arr, arr.length - 1);
-    function sum(arr, index) {
-        if (index === 0) {
-            if (arr[index] % 2 === 0) {
-                return arr[0];
-            }
-            return 0;
-        } else {
-            if (arr[index] % 2 === 0) {
-                return arr[index] + sum(arr, index - 1);
-            }
+
+function sumElArrMultiplaceTwo(callback, arr, index = arr.length - 1) {
+    if (index === 0) {
+        if (callback) {
+            return arr[0];
         }
-        return sum(arr, index - 1);
-    }
-}
-
-
-
-function sumPositiveElemArr(arr) {
-    return sum(arr, arr.length - 1);
-    function sum(arr, index) {
-        if (index === 0) {
-            if (arr[index] > 0) {
-                return arr[0];
-            }
-            return 0;
-        } else {
-            if (arr[index] > 0) {
-                return arr[index] + sum(arr, index - 1);
-            }
+        return 0;
+    } else {
+        if (callback) {
+            return arr[index] + sumElArrMultiplaceTwo(callback, arr, index - 1);
         }
-        return sum(arr, index - 1);
     }
+    return sumElArrMultiplaceTwo(callback, arr, index - 1);
 }
 
 
@@ -299,16 +277,7 @@ function convertBinaryToDecimal(num) {
 
 
 // 12. Пункты 9 и 10 выполнить для двумерных массивов.
-let arr = [
-    [1, -2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-];
-let doubleArrey = [
-    [1, -2, 3],
-    [4, 5, 6],
-    [7, 8, 9]
-];
+
 let myFilterSumDouble = (collection, callback) => {
     let sum = 0;
     for (let i = 0; i < collection.length; i++) {
@@ -371,14 +340,11 @@ function sumValuesBetveenMinMax(min, max) {
 
 
 // Реализовать также с помощью рекурсии.
-function sumValuesBetveenMinMaxRec(min, max) {
-    if (min <= max) {
-        if (max % 3 == 0 && max > 0) {
-            return max + sumValuesBetveenMinMaxRec(min, max - 1);
-        }
-        return sumValuesBetveenMinMaxRec(min, max - 1);
+function sumValuesBetveenMinMaxRec(min, max, callback) {
+    if (callback) {
+        return max + sumValuesBetveenMinMaxRec(min, max - 1);
     }
-    return 0;
+    return sumValuesBetveenMinMaxRec(min, max - 1);
 }
 
 
@@ -452,11 +418,6 @@ function transMatrix(arr) {
 }
 
 
-let arrTwo = [
-    [2, 3, 4],
-    [3, 4, 5],
-    [4, 5, 96],
-];
 
 function additionMatrix(arrOne, arrTwo) {
     if (arrOne.length == 0 || arrTwo.length == 0) {
@@ -474,11 +435,6 @@ function additionMatrix(arrOne, arrTwo) {
 
 
 // 16. Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
-let arrThree = [
-    [1, 4, 0],
-    [2, 6, 5],
-    [0, 6, 8],
-];
 
 function deleteRowNullElem(arr) {
     for (let i = 0; i < arr.length; i++) {
@@ -504,12 +460,7 @@ function deleteColumNullElem(arr) {
 
 
 // 17. Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
-let arrFour = [
-    [1, 1, 1, 1],
-    [2, 2, 2, 2],
-    [3, 3, 3, 3],
-    [4, 4, 4, 4]
-];
+
 function sumOverMainDiagonal(arr) {
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {
@@ -546,13 +497,13 @@ function sumUnderMainDiagonal(arr) {
 // (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии
 
 function* fibonachi() {
-    let num1 = 0;
-    let num2 = 1;
+    let first = 0;
+    let second = 1;
     while (true) {
-        let num3 = num1 + num2;
-        num1 = num2;
-        num2 = num3;
-        yield num2;
+        let third = first + second;
+        first = second;
+        second = third;
+        yield second;
     }
 }
 
@@ -606,7 +557,6 @@ for (let i = 0; i < 100; i++) {
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
 
 function determingSignNumber(num) {
-    console.log(num >> 31);
     if (num >> 31 === 0) {
         return true;
     } else {
@@ -617,15 +567,16 @@ function determingSignNumber(num) {
 function numberBitsEqual(num) {
     let countOne = 0;
     let countNul = 0;
-    for (let i = 0; i < 32; i++) {
-        if (((num >> i) & 1) === 1) {
+    num = convertDecimalToBinary(num);
+    console.log(num);
+    for (let i = 0; i < num.length; i++) {
+        if (num[i] == 1) {
             countOne++;
         }
-        countNul++;
     }
+    countNul = 32 - countOne;
     return { countOne, countNul };
 }
-
 
 function tilde(num) {
     let newNum = [];
