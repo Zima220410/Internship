@@ -96,7 +96,7 @@ function getObjUniqueWords(arr) {
     let obj = {};
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] in obj) {
-            obj[arr[i]] += 1;
+            obj[arr[i]]++;
         } else {
             obj[arr[i]] = 1;
         }
@@ -556,14 +556,12 @@ function* fibonachi() {
     }
 }
 
-
 function numFibonachiRecurs(num) {
     if (num <= 1) {
         return num;
     }
     return numFibonachiRecurs(num - 1) + numFibonachiRecurs(num - 2);
 }
-
 
 let numFibonachiMemo = (function () {
     let memo = {};
@@ -603,6 +601,7 @@ for (let i = 0; i < 100; i++) {
     trafficLight.next().value;
 }
 
+
 // 20. Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля. 
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
 
@@ -618,13 +617,13 @@ function determingSignNumber(num) {
 function numberBitsEqual(num) {
     let countOne = 0;
     let countNul = 0;
-    for(let i = 0; i < 32; i++){
-        if (((num >> i) & 1 ) === 1){
+    for (let i = 0; i < 32; i++) {
+        if (((num >> i) & 1) === 1) {
             countOne++;
         }
         countNul++;
     }
-    return {countOne, countNul};
+    return { countOne, countNul };
 }
 
 
