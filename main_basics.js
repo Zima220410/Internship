@@ -1,11 +1,37 @@
-// 1. Написать функцию которая проверяет являются две строки анаграммой или нет
+// 1..... Написать функцию которая проверяет являются две строки анаграммой или нет
+
 function stringsAreAnagram(strOne, strTwo) {
-    if (strOne.toLowerCase().split('').sort().join('') ===
-        strTwo.toLowerCase().split('').sort().join('')) {
-        return true;
-    } else {
-        return false;
+    if (strOne.length === strTwo.length) {
+        let arrOne = [], arrTwo = [];
+        for (let i = 0; i < strOne.length; i++) {
+            arrOne[i] = strOne[i];
+            arrTwo[i] = strTwo[i];
+        }
+        let temp1, temp2;
+        for (let i = 0; i < arrOne.length; i++) {
+            for (let j = 0; j < arrOne.length - 1; j++) {
+                if (arrOne[j] > arrOne[j + 1]) {
+                    temp1 = arrOne[j];
+                    arrOne[j] = arrOne[j + 1];
+                    arrOne[j + 1] = temp1;
+                }
+                if (arrTwo[j] > arrTwo[j + 1]) {
+                    temp2 = arrTwo[j];
+                    arrTwo[j] = arrTwo[j + 1];
+                    arrTwo[j + 1] = temp2;
+                }
+            }
+        }
+        let resOne = '', resTwo = '';
+        for (let i = 0; i < arrOne.length; i++) {
+            resOne += arrOne[i];
+            resTwo += arrTwo[i];
+        }
+        if (resOne === resTwo) {
+            return true;
+        }
     }
+    return false;
 }
 stringsAreAnagram("банка", "кабан");
 
@@ -20,62 +46,60 @@ function findLengthNumber(num) {
 }
 findLengthNumber(1234567);
 
-// 3. Написать функцию которая вычисляет подсчет количество цифр в числе. Рекурсия.
-let findLengthNumberRecurs = (function () {
-    let count = 1;
-    function getNum(num) {
-        if ((num /= 10) >= 1) {
-            count++;
-            getNum(num);
-        }
-        return count;
+// 3.... Написать функцию которая вычисляет подсчет количество цифр в числе. Рекурсия.
+function findLengthNumberRecurs(num, count) {
+    count = count || 1;
+    if ((num /= 10) >= 1) {
+        return findLengthNumberRecurs(num, ++count);
     }
-    return getNum;
-})();
-findLengthNumberRecurs(123456789);
+    return count;
+}
+findLengthNumberRecurs(1234567);
 
 
-// 4. Реализовать функцию которая проверяет, является ли строка палиндромом.
+// 4.... Реализовать функцию которая проверяет, является ли строка палиндромом.
 function isStringPalindrom(str) {
     let result = '';
     for (let i = 0; i <= str.length; i++) {
         if (str[i] === str[str.length - 1 - i]) {
-            result = 'Yes';
+            result = true;
         } else {
-            result = 'no';
+            result = false;
             return result;
         }
     }
     return result;
 }
-isStringPalindrom('zxcvcxz');
 
 
-// 5. Написать функцию которая вычисляет подсчет уникальных слов в предложении
-function numUniqueWords(str) {
-    let arr = str.split(' ');
-    return (Array.from(new Set(arr)).length);
-}
-numUniqueWords('qqq aaa qqq zzz aaa qqq');
-
-// 5. Написать функцию которая вычисляет подсчет уникальных слов в предложении
-function numberUniqueWords(srt) {
-    let arr = srt.split(' ');
-    for (let i = 0; i < arr.length; i++) {
-        for (let j = i + 1; j < arr.length; j++) {
-            if (arr[i] === arr[j]) {
-                arr.splice(j, 1);
-            }
-        }
+// 5.... Написать функцию которая вычисляет подсчет уникальных слов в предложении
+function numberUniqueWords(str) {
+    let arr = sortSplitArrey(str);
+    let obj = getObjUniqueWords(arr);
+    let count = 0;
+    for(let item in obj){
+        count++;
     }
-    return arr.length;
+    return count;
 }
-numberUniqueWords('zzz aaa zzzz qqq aaa qqq zzz');
+numberUniqueWords('zzz xxx ccc vvv bbb bbb');
 
-
-// 6. Написать функцию которая вычисляет вхождение каждого слова в предложение
-function calcNumberOccurrencesWords(str) {
-    let arr = str.split(' ');
+function sortSplitArrey(str){
+    let arr = [];
+    let temp = '';
+    for (let i = 0; i <= str.length; i++) {
+        if (str[i] == ' ') {
+            arr.push(temp);
+            i++;
+            temp = '';
+        } else if (i == str.length) {
+            arr.push(temp);
+        }
+        temp += str[i];
+    }
+    return arr;
+}
+function getObjUniqueWords(arr){
     let obj = {};
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] in obj) {
@@ -84,6 +108,14 @@ function calcNumberOccurrencesWords(str) {
             obj[arr[i]] = 1;
         }
     }
+    return obj;
+}
+
+
+// 6..... Написать функцию которая вычисляет вхождение каждого слова в предложение
+function calcNumberOccurrencesWords(str) {
+    let arr = sortSplitArrey(str);
+    let obj = getObjUniqueWords(arr);
     return obj;
 }
 calcNumberOccurrencesWords("qqq aaa qqq zzz aaa qqq qqq");
@@ -270,13 +302,13 @@ let myFilterCounter = (collection, callback) => {
     }
     return counter;
 }
-let countNumberNullElement = myFilterCounter(mus, (num) => num == 0);
+let countNumberNullElement = myFilterCounter(arrey, (num) => num == 0);
 countNumberNullElement;
 
-let countNumberPositiveElement = myFilterCounter(mus, (num) => num > 0);
+let countNumberPositiveElement = myFilterCounter(arrey, (num) => num > 0);
 countNumberPositiveElement;
 
-let countNumberNegativeElement = myFilterCounter(mus, (num) => num < 0);
+let countNumberNegativeElement = myFilterCounter(arrey, (num) => num < 0);
 countNumberNegativeElement;
 
 function isPrime(num) {
@@ -287,7 +319,7 @@ function isPrime(num) {
     }
     return num > 1;
 }
-mus.filter(isPrime).length;
+arrey.filter(isPrime).length;
 
 
 // 11. Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону.
@@ -325,7 +357,7 @@ let arr = [
     [4, 5, 6],
     [7, 8, 9]
 ];
-let doublearrey = [
+let doubleArrey = [
     [1, -2, 3],
     [4, 5, 6],
     [7, 8, 9]
@@ -341,13 +373,13 @@ let myFilterSumDouble = (collection, callback) => {
     }
     return sum;
 }
-let sumElementsDoubleArreyMultiplaceTwo = myFilterSumDouble(doublearrey, (num) => num % 2 === 0);
+let sumElementsDoubleArreyMultiplaceTwo = myFilterSumDouble(doubleArrey, (num) => num % 2 === 0);
 sumElementsDoubleArreyMultiplaceTwo;
 
-let sumElementsDoubleArreyNotMultiplaceThree = myFilterSumDouble(doublearrey, (num) => num % 3 === 0);
+let sumElementsDoubleArreyNotMultiplaceThree = myFilterSumDouble(doubleArrey, (num) => num % 3 === 0);
 sumElementsDoubleArreyNotMultiplaceThree;
 
-let sumPositiveElementsDoubleArrey = myFilterSumDouble(doublearrey, (num) => num > 0 && num % 2 !== 0);
+let sumPositiveElementsDoubleArrey = myFilterSumDouble(doubleArrey, (num) => num > 0 && num % 2 !== 0);
 sumPositiveElementsDoubleArrey;
 
 let myFilterCountDouble = (collection, callback) => {
@@ -362,13 +394,13 @@ let myFilterCountDouble = (collection, callback) => {
     return count;
 }
 
-let countNumberOfNullElementsDoubleArray = myFilterCountDouble(doublearrey, (num) => num === 0);
+let countNumberOfNullElementsDoubleArray = myFilterCountDouble(doubleArrey, (num) => num === 0);
 countNumberOfNullElementsDoubleArray;
 
-let countNumberOfPositiveElementsDoubleArray = myFilterCountDouble(doublearrey, (num) => num > 0);
+let countNumberOfPositiveElementsDoubleArray = myFilterCountDouble(doubleArrey, (num) => num > 0);
 countNumberOfPositiveElementsDoubleArray;
 
-let countNumberOfNegativeElementsDoubleArray = myFilterCountDouble(doublearrey, (num) => num < 0);
+let countNumberOfNegativeElementsDoubleArray = myFilterCountDouble(doubleArrey, (num) => num < 0);
 countNumberOfNegativeElementsDoubleArray;
 
 function countNumberOfSimpleElementsDoubleArray(arr) {
@@ -391,7 +423,7 @@ function countNumberOfSimpleElementsDoubleArray(arr) {
     }
     return count;
 }
-countNumberOfSimpleElementsDoubleArray(arr);
+countNumberOfSimpleElementsDoubleArray(doubleArrey);
 
 
 // 13. Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные)
@@ -471,7 +503,7 @@ function findMeanDoubleArrey(arr) {
     }
     return sum / count;
 }
-findMeanDoubleArrey(arrey);
+findMeanDoubleArrey(doubleArrey);
 
 
 // 15. Транспонировать матрицу, сложить две матрицы.
@@ -488,7 +520,7 @@ function transMatrix(arr) {
     }
     return newTransArr;
 }
-transMatrix(arrey);
+transMatrix(doubleArrey);
 
 let arrTwo = [
     [2, 3, 4],
@@ -509,14 +541,15 @@ function additionMatrix(arrOne, arrTwo) {
     }
     return newArrey;
 }
-additionMatrix(doublearrey, arrTwo);
+additionMatrix(doubleArrey, arrTwo);
 
 // 16. Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 let arrThree = [
-    [1, 1, 1],
-    [2, 2, 0],
-    [3, 3, 3],
+    [1, 4, 0],
+    [2, 6, 5],
+    [0, 6, 8],
 ];
+
 function deleteRowNullElem(arr) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i].indexOf(0) !== -1) {
@@ -582,40 +615,8 @@ sumUnderMainDiagonal(arrFour);
 // 18. Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи
 // (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии
 
-function numberFibonachi() {
-    let range = {
-        from: 1,
-        to: 10,
-        [Symbol.iterator]() {
-            this.current = this.from;
-            return this;
-        },
-        next() {
-            if (this.current <= this.to) {
-                return {
-                    done: false,
-                    value: this.current++
-                };
-            } else {
-                return {
-                    done: true
-                };
-            }
-        }
-    };
-    let num1 = 0;
-    let num2 = 1;
-    for (let item of range) {
-        let num3 = num1 + num2;
-        num1 = num2;
-        num2 = num3;
-        return num2;
-    };
-}
-numberFibonachi();
-
 function* fibonachi() {
-    let num1 = 1;
+    let num1 = 0;
     let num2 = 1;
     while (true) {
         let num3 = num1 + num2;
