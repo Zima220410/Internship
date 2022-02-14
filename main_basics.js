@@ -33,7 +33,6 @@ function stringsAreAnagram(strOne, strTwo) {
     }
     return false;
 }
-stringsAreAnagram("банка", "кабан");
 
 
 // 3. Написать функцию которая вычисляет подсчет количество цифр в числе. 
@@ -44,7 +43,6 @@ function findLengthNumber(num) {
     }
     return count;
 }
-findLengthNumber(1234567);
 
 // 3.... Написать функцию которая вычисляет подсчет количество цифр в числе. Рекурсия.
 function findLengthNumberRecurs(num, count) {
@@ -54,21 +52,17 @@ function findLengthNumberRecurs(num, count) {
     }
     return count;
 }
-findLengthNumberRecurs(1234567);
 
 
 // 4.... Реализовать функцию которая проверяет, является ли строка палиндромом.
+
 function isStringPalindrom(str) {
-    let result = '';
     for (let i = 0; i <= str.length; i++) {
-        if (str[i] === str[str.length - 1 - i]) {
-            result = true;
-        } else {
-            result = false;
-            return result;
+        if (str[i] !== str[str.length - 1 - i]) {
+            return false;
         }
     }
-    return result;
+    return true;
 }
 
 
@@ -77,14 +71,13 @@ function numberUniqueWords(str) {
     let arr = sortSplitArrey(str);
     let obj = getObjUniqueWords(arr);
     let count = 0;
-    for(let item in obj){
+    for (let item in obj) {
         count++;
     }
     return count;
 }
-numberUniqueWords('zzz xxx ccc vvv bbb bbb');
 
-function sortSplitArrey(str){
+function sortSplitArrey(str) {
     let arr = [];
     let temp = '';
     for (let i = 0; i <= str.length; i++) {
@@ -99,7 +92,7 @@ function sortSplitArrey(str){
     }
     return arr;
 }
-function getObjUniqueWords(arr){
+function getObjUniqueWords(arr) {
     let obj = {};
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] in obj) {
@@ -114,11 +107,8 @@ function getObjUniqueWords(arr){
 
 // 6..... Написать функцию которая вычисляет вхождение каждого слова в предложение
 function calcNumberOccurrencesWords(str) {
-    let arr = sortSplitArrey(str);
-    let obj = getObjUniqueWords(arr);
-    return obj;
+    return getObjUniqueWords(sortSplitArrey(str));
 }
-calcNumberOccurrencesWords("qqq aaa qqq zzz aaa qqq qqq");
 
 
 // 7. Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов.
@@ -177,16 +167,16 @@ function getFactorial(num) {
     }
     return result;
 }
-getFactorial(4);
+
 
 // 8. Вычислить факториал числа. Реализовать с помощью рекурсии.
-function findFactorialOfNum(num) {
+function findFactorialNum(num) {
     if (num != 1) {
-        return num * findFactorialOfNum(num - 1);
+        return num * findFactorialNum(num - 1);
     }
     return num;
 }
-findFactorialOfNum(5);
+
 
 // 8. Реализовать мемоизированную функцию вычисления факториала.
 let findFactorialMemo = (function () {
@@ -194,7 +184,7 @@ let findFactorialMemo = (function () {
     function memoryCreation(i) {
         let value;
         if (i in memo) {
-            value = memo[i];
+            return memo[i];
         } else {
             if (i === 1) {
                 value = i;
@@ -207,11 +197,10 @@ let findFactorialMemo = (function () {
     }
     return memoryCreation;
 })();
-findFactorialMemo(5);
+
 
 
 // 9. Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные)
-let mus = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 let arrey = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 let myFilterSum = (collection, callback) => {
@@ -223,14 +212,7 @@ let myFilterSum = (collection, callback) => {
     }
     return sum;
 }
-let sumElementsArreyMultipleTwo = myFilterSum(arrey, (num) => num % 2 === 0);
-sumElementsArreyMultipleTwo;
 
-let sumElementsArreyMultipleThree = myFilterSum(arrey, (num) => num % 3 === 0);
-sumElementsArreyMultipleThree;
-
-let sumPositiveNotMultiElemeArrey = myFilterSum(arrey, (num) => num > 0 && num % 2 !== 0);
-sumPositiveNotMultiElemeArrey;
 
 
 // 9. Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные),
@@ -252,25 +234,8 @@ function sumElArrMultiplaceTwo(arr) {
         return sum(arr, index - 1);
     }
 }
-sumElArrMultiplaceTwo(arrey);
 
-function sumElArrNotMultiplaceTwo(arr) {
-    return sum(arr, arr.length - 1);
-    function sum(arr, index) {
-        if (index === 0) {
-            if (arr[index] % 2 !== 0) {
-                return arr[0];
-            }
-            return 0;
-        } else {
-            if (arr[index] % 2 !== 0) {
-                return arr[index] + sum(arr, index - 1);
-            }
-        }
-        return sum(arr, index - 1);
-    }
-}
-sumElArrNotMultiplaceTwo(arrey);
+
 
 function sumPositiveElemArr(arr) {
     return sum(arr, arr.length - 1);
@@ -288,38 +253,20 @@ function sumPositiveElemArr(arr) {
         return sum(arr, index - 1);
     }
 }
-sumPositiveElemArr(arrey);
+
 
 
 // 10. Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа)
 
 let myFilterCounter = (collection, callback) => {
     let counter = 0;
-    for (let item of collection) {
+    for (let item in collection) {
         if (callback(item)) {
             counter++;
         }
     }
     return counter;
 }
-let countNumberNullElement = myFilterCounter(arrey, (num) => num == 0);
-countNumberNullElement;
-
-let countNumberPositiveElement = myFilterCounter(arrey, (num) => num > 0);
-countNumberPositiveElement;
-
-let countNumberNegativeElement = myFilterCounter(arrey, (num) => num < 0);
-countNumberNegativeElement;
-
-function isPrime(num) {
-    for (let i = 2; num > i; i++) {
-        if (num % i == 0) {
-            return false;
-        }
-    }
-    return num > 1;
-}
-arrey.filter(isPrime).length;
 
 
 // 11. Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону.
@@ -336,7 +283,7 @@ function convertDecimalToBinary(num) {
     }
     return newStr;
 }
-convertDecimalToBinary(100);
+
 
 function convertBinaryToDecimal(num) {
     let temp = num;
@@ -349,7 +296,7 @@ function convertBinaryToDecimal(num) {
     }
     return sum;
 }
-convertBinaryToDecimal(1100100);
+
 
 // 12. Пункты 9 и 10 выполнить для двумерных массивов.
 let arr = [
@@ -373,14 +320,7 @@ let myFilterSumDouble = (collection, callback) => {
     }
     return sum;
 }
-let sumElementsDoubleArreyMultiplaceTwo = myFilterSumDouble(doubleArrey, (num) => num % 2 === 0);
-sumElementsDoubleArreyMultiplaceTwo;
 
-let sumElementsDoubleArreyNotMultiplaceThree = myFilterSumDouble(doubleArrey, (num) => num % 3 === 0);
-sumElementsDoubleArreyNotMultiplaceThree;
-
-let sumPositiveElementsDoubleArrey = myFilterSumDouble(doubleArrey, (num) => num > 0 && num % 2 !== 0);
-sumPositiveElementsDoubleArrey;
 
 let myFilterCountDouble = (collection, callback) => {
     let count = 0;
@@ -394,14 +334,6 @@ let myFilterCountDouble = (collection, callback) => {
     return count;
 }
 
-let countNumberOfNullElementsDoubleArray = myFilterCountDouble(doubleArrey, (num) => num === 0);
-countNumberOfNullElementsDoubleArray;
-
-let countNumberOfPositiveElementsDoubleArray = myFilterCountDouble(doubleArrey, (num) => num > 0);
-countNumberOfPositiveElementsDoubleArray;
-
-let countNumberOfNegativeElementsDoubleArray = myFilterCountDouble(doubleArrey, (num) => num < 0);
-countNumberOfNegativeElementsDoubleArray;
 
 function countNumberOfSimpleElementsDoubleArray(arr) {
     let count = 0;
@@ -423,7 +355,7 @@ function countNumberOfSimpleElementsDoubleArray(arr) {
     }
     return count;
 }
-countNumberOfSimpleElementsDoubleArray(doubleArrey);
+
 
 
 // 13. Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные)
@@ -436,7 +368,7 @@ function sumValuesBetveenMinMax(min, max) {
     }
     return sum;
 }
-sumValuesBetveenMinMax(2, 12);
+
 
 // Реализовать также с помощью рекурсии.
 function sumValuesBetveenMinMaxRec(min, max) {
@@ -448,14 +380,13 @@ function sumValuesBetveenMinMaxRec(min, max) {
     }
     return 0;
 }
-sumValuesBetveenMinMaxRec(2, 9);
 
 
 let sumValuesBetveenMinMaxMemo = (function () {
     let memo = {};
     function memoryCreation(min, max) {
         if (max in memo) {
-            value = memo[max];
+            return memo[max];
         } else {
             if (min <= max) {
                 if (max % 3 == 0 && max > 0) {
@@ -469,33 +400,32 @@ let sumValuesBetveenMinMaxMemo = (function () {
             }
             return 0;
         }
-        return value;
     }
     return memoryCreation;
 })();
-sumValuesBetveenMinMaxMemo(-10, 10);
+
 
 // 14. Найти среднее значение всех элементов одномерного/двумерного массива
 // (Среднее только тех которые четные и которые не четные).
-function findMeanArrey(arr) {
+function findMeanArrey(arr, callback) {
     let sum = 0;
     let count = 0;
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] % 2 == 0) {
+        if (callback) {
             sum += arr[i];
             count++;
         }
     }
     return sum / count;
 }
-findMeanArrey(arrey);
 
-function findMeanDoubleArrey(arr) {
+
+function findMeanDoubleArrey(arr, callback) {
     let sum = 0;
     let count = 0;
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr[i].length; j++) {
-            if (arr[i][j] % 2 !== 0) {
+            if (callback) {
                 sum += arr[i][j];
                 count++;
             }
@@ -503,7 +433,7 @@ function findMeanDoubleArrey(arr) {
     }
     return sum / count;
 }
-findMeanDoubleArrey(doubleArrey);
+
 
 
 // 15. Транспонировать матрицу, сложить две матрицы.
@@ -520,7 +450,7 @@ function transMatrix(arr) {
     }
     return newTransArr;
 }
-transMatrix(doubleArrey);
+
 
 let arrTwo = [
     [2, 3, 4],
@@ -541,7 +471,7 @@ function additionMatrix(arrOne, arrTwo) {
     }
     return newArrey;
 }
-additionMatrix(doubleArrey, arrTwo);
+
 
 // 16. Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
 let arrThree = [
@@ -559,7 +489,7 @@ function deleteRowNullElem(arr) {
     }
     return arr;
 }
-// deleteRowNullElem(arrThree);
+
 
 function deleteColumNullElem(arr) {
     let newArr = transMatrix(arr);
@@ -571,7 +501,7 @@ function deleteColumNullElem(arr) {
     }
     return transMatrix(newArr);
 }
-// deleteColumNullElem(arrThree);
+
 
 // 17. Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
 let arrFour = [
@@ -589,7 +519,7 @@ function sumOverMainDiagonal(arr) {
     }
     return sum;
 }
-sumOverMainDiagonal(arrFour);
+
 
 function sumMainDiagonal(arr) {
     let sum = 0;
@@ -598,7 +528,7 @@ function sumMainDiagonal(arr) {
     }
     return sum;
 }
-sumMainDiagonal(arrFour);
+
 
 function sumUnderMainDiagonal(arr) {
     let sum = 0;
@@ -609,7 +539,7 @@ function sumUnderMainDiagonal(arr) {
     }
     return sum;
 }
-sumUnderMainDiagonal(arrFour);
+
 
 
 // 18. Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи
@@ -625,8 +555,6 @@ function* fibonachi() {
         yield num2;
     }
 }
-let fib = fibonachi();
-fib.next().value;
 
 
 function numFibonachiRecurs(num) {
@@ -635,7 +563,6 @@ function numFibonachiRecurs(num) {
     }
     return numFibonachiRecurs(num - 1) + numFibonachiRecurs(num - 2);
 }
-numFibonachiRecurs(7);
 
 
 let numFibonachiMemo = (function () {
@@ -643,7 +570,7 @@ let numFibonachiMemo = (function () {
     function memoryCreation(i) {
         let value;
         if (i in memo) {
-            value = memo[i];
+            return memo[i];
         } else {
             if (i <= 1) {
                 value = i;
@@ -656,7 +583,7 @@ let numFibonachiMemo = (function () {
     }
     return memoryCreation;
 })();
-numFibonachiMemo(7);
+
 
 
 // 19.Реализовать с помощью итератора и генератора светофор. 
@@ -679,22 +606,27 @@ for (let i = 0; i < 100; i++) {
 // 20. Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля. 
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
 
-let binaryNumber = '101011100101001';
 function determingSignNumber(num) {
-    if (num[0] === '0') {
+    console.log(num >> 31);
+    if (num >> 31 === 0) {
         return true;
     } else {
         return false;
     }
 }
-determingSignNumber(binaryNumber);
 
+function numberBitsEqual(num) {
+    let countOne = 0;
+    let countNul = 0;
+    for(let i = 0; i < 32; i++){
+        if (((num >> i) & 1 ) === 1){
+            countOne++;
+        }
+        countNul++;
+    }
+    return {countOne, countNul};
+}
 
-let numberBitsEqualOne = myFilterCounter(binaryNumber, (num) => num === '1');
-numberBitsEqualOne;
-
-let numberBitsEqualNul = myFilterCounter(binaryNumber, (num) => num === '0');
-numberBitsEqualNul;
 
 function tilde(num) {
     let newNum = [];
@@ -707,4 +639,3 @@ function tilde(num) {
     }
     return newNum.join('');
 }
-tilde(binaryNumber);
