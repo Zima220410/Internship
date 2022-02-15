@@ -1,5 +1,4 @@
 // 1..... Написать функцию которая проверяет являются две строки анаграммой или нет
-
 function stringsAreAnagram(strOne, strTwo) {
     if (strOne.length === strTwo.length) {
         let arrOne = [], arrTwo = [];
@@ -34,7 +33,6 @@ function stringsAreAnagram(strOne, strTwo) {
     return false;
 }
 
-
 // 3. Написать функцию которая вычисляет подсчет количество цифр в числе. 
 function findLengthNumber(num) {
     let count = 1;
@@ -53,9 +51,7 @@ function findLengthNumberRecurs(num, count) {
     return count;
 }
 
-
 // 4.... Реализовать функцию которая проверяет, является ли строка палиндромом.
-
 function isStringPalindrom(str) {
     for (let i = 0; i <= str.length; i++) {
         if (str[i] !== str[str.length - 1 - i]) {
@@ -64,7 +60,6 @@ function isStringPalindrom(str) {
     }
     return true;
 }
-
 
 // 5.... Написать функцию которая вычисляет подсчет уникальных слов в предложении
 function numberUniqueWords(str) {
@@ -92,6 +87,7 @@ function sortSplitArrey(str) {
     }
     return arr;
 }
+
 function getObjUniqueWords(arr) {
     let obj = {};
     for (let i = 0; i < arr.length; i++) {
@@ -104,12 +100,10 @@ function getObjUniqueWords(arr) {
     return obj;
 }
 
-
 // 6..... Написать функцию которая вычисляет вхождение каждого слова в предложение
 function calcNumberOccurrencesWords(str) {
     return getObjUniqueWords(sortSplitArrey(str));
 }
-
 
 // 7. Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов.
 class Rectangle {
@@ -124,9 +118,6 @@ class Rectangle {
         return (this.width + this.heigth) * 2;
     }
 }
-let rectangle = new Rectangle(25, 4);
-rectangle.square();
-rectangle.perimeter();
 
 class RightTriangle {
     constructor(firstLeg, secondLeg) {
@@ -140,9 +131,6 @@ class RightTriangle {
         return Math.sqrt(this.firstLeg ** 2 + this.secondLeg ** 2) + this.firstLeg + this.secondLeg;
     }
 }
-let rightTriangle = new RightTriangle(2, 4);
-rightTriangle.square();
-rightTriangle.perimeter();
 
 class Circle {
     constructor(radius) {
@@ -155,9 +143,6 @@ class Circle {
         return 2 * Math.PI * this.radius;
     }
 }
-let circle = new Circle(5);
-circle.square();
-circle.perimeter();
 
 // 8. Вычислить факториал числа.
 function getFactorial(num) {
@@ -168,7 +153,6 @@ function getFactorial(num) {
     return result;
 }
 
-
 // 8. Вычислить факториал числа. Реализовать с помощью рекурсии.
 function findFactorialNum(num) {
     if (num != 1) {
@@ -176,7 +160,6 @@ function findFactorialNum(num) {
     }
     return num;
 }
-
 
 // 8. Реализовать мемоизированную функцию вычисления факториала.
 let findFactorialMemo = (function () {
@@ -197,11 +180,7 @@ let findFactorialMemo = (function () {
     return memoryCreation;
 })();
 
-
-
 // 9. Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные)
-let arrey = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 let myFilterSum = (collection, callback) => {
     let sum = 0;
     for (let item of collection) {
@@ -212,12 +191,8 @@ let myFilterSum = (collection, callback) => {
     return sum;
 }
 
-
-
 // 9. Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные),
 // реализовать с помощью рекурсии для одномерного массива.
-
-
 function sumElArrMultiplaceTwo(callback, arr, index = arr.length - 1) {
     if (index === 0) {
         if (callback) {
@@ -232,10 +207,7 @@ function sumElArrMultiplaceTwo(callback, arr, index = arr.length - 1) {
     return sumElArrMultiplaceTwo(callback, arr, index - 1);
 }
 
-
-
 // 10. Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа)
-
 let myFilterCounter = (collection, callback) => {
     let counter = 0;
     for (let item in collection) {
@@ -245,7 +217,6 @@ let myFilterCounter = (collection, callback) => {
     }
     return counter;
 }
-
 
 // 11. Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону.
 function convertDecimalToBinary(num) {
@@ -262,7 +233,6 @@ function convertDecimalToBinary(num) {
     return newStr;
 }
 
-
 function convertBinaryToDecimal(num) {
     let temp = num;
     let sum = 0;
@@ -275,9 +245,7 @@ function convertBinaryToDecimal(num) {
     return sum;
 }
 
-
 // 12. Пункты 9 и 10 выполнить для двумерных массивов.
-
 let myFilterSumDouble = (collection, callback) => {
     let sum = 0;
     for (let i = 0; i < collection.length; i++) {
@@ -290,7 +258,6 @@ let myFilterSumDouble = (collection, callback) => {
     return sum;
 }
 
-
 let myFilterCountDouble = (collection, callback) => {
     let count = 0;
     for (let i = 0; i < collection.length; i++) {
@@ -302,7 +269,6 @@ let myFilterCountDouble = (collection, callback) => {
     }
     return count;
 }
-
 
 function countNumberOfSimpleElementsDoubleArray(arr) {
     let count = 0;
@@ -325,8 +291,6 @@ function countNumberOfSimpleElementsDoubleArray(arr) {
     return count;
 }
 
-
-
 // 13. Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные)
 function sumValuesBetveenMinMax(min, max) {
     let sum = 0;
@@ -338,7 +302,6 @@ function sumValuesBetveenMinMax(min, max) {
     return sum;
 }
 
-
 // Реализовать также с помощью рекурсии.
 function sumValuesBetveenMinMaxRec(min, max, callback) {
     if (callback) {
@@ -346,7 +309,6 @@ function sumValuesBetveenMinMaxRec(min, max, callback) {
     }
     return sumValuesBetveenMinMaxRec(min, max - 1);
 }
-
 
 let sumValuesBetveenMinMaxMemo = (function () {
     let memo = {};
@@ -370,21 +332,19 @@ let sumValuesBetveenMinMaxMemo = (function () {
     return memoryCreation;
 })();
 
-
 // 14. Найти среднее значение всех элементов одномерного/двумерного массива
 // (Среднее только тех которые четные и которые не четные).
 function findMeanArrey(arr, callback) {
     let sum = 0;
     let count = 0;
     for (let i = 0; i < arr.length; i++) {
-        if (callback) {
+        if (callback(i)) {
             sum += arr[i];
             count++;
         }
     }
     return sum / count;
 }
-
 
 function findMeanDoubleArrey(arr, callback) {
     let sum = 0;
@@ -399,8 +359,6 @@ function findMeanDoubleArrey(arr, callback) {
     }
     return sum / count;
 }
-
-
 
 // 15. Транспонировать матрицу, сложить две матрицы.
 function transMatrix(arr) {
@@ -417,8 +375,6 @@ function transMatrix(arr) {
     return newTransArr;
 }
 
-
-
 function additionMatrix(arrOne, arrTwo) {
     if (arrOne.length == 0 || arrTwo.length == 0) {
         return 0;
@@ -433,9 +389,7 @@ function additionMatrix(arrOne, arrTwo) {
     return newArrey;
 }
 
-
 // 16. Удалить из двумерного массива строку в которой присутствует хотя бы один нулевой элемент. Для столбца аналогично реализовать.
-
 function deleteRowNullElem(arr) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i].indexOf(0) !== -1) {
@@ -445,7 +399,6 @@ function deleteRowNullElem(arr) {
     }
     return arr;
 }
-
 
 function deleteColumNullElem(arr) {
     let newArr = transMatrix(arr);
@@ -458,9 +411,7 @@ function deleteColumNullElem(arr) {
     return transMatrix(newArr);
 }
 
-
 // 17. Посчитать сумму/количество нулевых элементов/среднее значение элементов матрицы над и под главной диагональю и на главной диагональю.
-
 function sumOverMainDiagonal(arr) {
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {
@@ -471,7 +422,6 @@ function sumOverMainDiagonal(arr) {
     return sum;
 }
 
-
 function sumMainDiagonal(arr) {
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {
@@ -479,7 +429,6 @@ function sumMainDiagonal(arr) {
     }
     return sum;
 }
-
 
 function sumUnderMainDiagonal(arr) {
     let sum = 0;
@@ -491,11 +440,8 @@ function sumUnderMainDiagonal(arr) {
     return sum;
 }
 
-
-
 // 18. Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи
 // (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии
-
 function* fibonachi() {
     let first = 0;
     let second = 1;
@@ -533,11 +479,8 @@ let numFibonachiMemo = (function () {
     return memoryCreation;
 })();
 
-
-
 // 19.Реализовать с помощью итератора и генератора светофор. 
 // При каждой следующей итерации мы должны получать следующий корректный цвет по логике светофора.`
-
 function* changeTrafficLight() {
     while (true) {
         yield 'Red';
@@ -546,29 +489,20 @@ function* changeTrafficLight() {
         yield 'Yellow';
     }
 }
-let trafficLight = changeTrafficLight();
-
-for (let i = 0; i < 100; i++) {
-    trafficLight.next().value;
-}
-
 
 // 20. Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля. 
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
-
 function determingSignNumber(num) {
     if (num >> 31 === 0) {
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 function numberBitsEqual(num) {
     let countOne = 0;
     let countNul = 0;
     num = convertDecimalToBinary(num);
-    console.log(num);
     for (let i = 0; i < num.length; i++) {
         if (num[i] == 1) {
             countOne++;
