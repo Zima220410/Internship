@@ -1,12 +1,16 @@
 // 1..... Написать функцию которая проверяет являются две строки анаграммой или нет
 function stringsAreAnagram(strOne, strTwo) {
+    if (typeof strOne !== 'string' && strTwo !== 'string') {
+        throw new Error('Error, passed not a string');
+    }
     if (strOne.length === strTwo.length) {
         let arrOne = [], arrTwo = [];
         for (let i = 0; i < strOne.length; i++) {
             arrOne[i] = strOne[i];
             arrTwo[i] = strTwo[i];
         }
-        let temp1, temp2;
+        let temp1;
+        let temp2;
         for (let i = 0; i < arrOne.length; i++) {
             for (let j = 0; j < arrOne.length - 1; j++) {
                 if (arrOne[j] > arrOne[j + 1]) {
@@ -35,6 +39,9 @@ function stringsAreAnagram(strOne, strTwo) {
 
 // 3. Написать функцию которая вычисляет подсчет количество цифр в числе. 
 function findLengthNumber(num) {
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     let count = 1;
     while ((num /= 10) >= 1) {
         count++;
@@ -45,6 +52,9 @@ function findLengthNumber(num) {
 // 3.... Написать функцию которая вычисляет подсчет количество цифр в числе. Рекурсия.
 function findLengthNumberRecurs(num, count) {
     count = count || 1;
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     if ((num /= 10) >= 1) {
         return findLengthNumberRecurs(num, ++count);
     }
@@ -53,6 +63,9 @@ function findLengthNumberRecurs(num, count) {
 
 // 4.... Реализовать функцию которая проверяет, является ли строка палиндромом.
 function isStringPalindrom(str) {
+    if (typeof str !== 'string') {
+        throw new Error('Error, passed not a string');
+    }
     for (let i = 0; i <= str.length; i++) {
         if (str[i] !== str[str.length - 1 - i]) {
             return false;
@@ -63,6 +76,9 @@ function isStringPalindrom(str) {
 
 // 5.... Написать функцию которая вычисляет подсчет уникальных слов в предложении
 function numberUniqueWords(str) {
+    if (typeof str !== 'string') {
+        throw new Error('Error, passed not a string');
+    }
     let arr = sortSplitArrey(str);
     let obj = getObjUniqueWords(arr);
     let count = 0;
@@ -73,6 +89,9 @@ function numberUniqueWords(str) {
 }
 
 function sortSplitArrey(str) {
+    if (typeof str !== 'string') {
+        throw new Error('Error, passed not a string');
+    }
     let arr = [];
     let temp = '';
     for (let i = 0; i <= str.length; i++) {
@@ -93,9 +112,8 @@ function getObjUniqueWords(arr) {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] in obj) {
             obj[arr[i]]++;
-        } else {
-            obj[arr[i]] = 1;
         }
+        obj[arr[i]] = 1;
     }
     return obj;
 }
@@ -108,6 +126,9 @@ function calcNumberOccurrencesWords(str) {
 // 7. Вычислить периметр и площадь для прямоугольника, треугольника и круга. С помощью конструктора и классов.
 class Rectangle {
     constructor(width, heigth) {
+        if (typeof (width && heigth) !== 'number' && (width && heigth) < 0) {
+            throw new Error('Error, invalid data sent');
+        }
         this.width = width;
         this.heigth = heigth;
     }
@@ -121,6 +142,9 @@ class Rectangle {
 
 class RightTriangle {
     constructor(firstLeg, secondLeg) {
+        if (typeof (firstLeg && secondLeg) !== 'number' && (firstLeg && secondLeg) < 0) {
+            throw new Error('Error, invalid data sent');
+        }
         this.firstLeg = firstLeg;
         this.secondLeg = secondLeg;
     }
@@ -134,6 +158,9 @@ class RightTriangle {
 
 class Circle {
     constructor(radius) {
+        if (typeof radius !== 'number' && radius < 0) {
+            throw new Error('Error, invalid data sent');
+        }
         this.radius = radius;
     }
     square() {
@@ -146,6 +173,9 @@ class Circle {
 
 // 8. Вычислить факториал числа.
 function getFactorial(num) {
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     let result = num;
     for (let i = num - 1; i > 0; i--) {
         result *= i;
@@ -155,6 +185,9 @@ function getFactorial(num) {
 
 // 8. Вычислить факториал числа. Реализовать с помощью рекурсии.
 function findFactorialNum(num) {
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     if (num != 1) {
         return num * findFactorialNum(num - 1);
     }
@@ -220,6 +253,9 @@ let myFilterCounter = (collection, callback) => {
 
 // 11. Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону.
 function convertDecimalToBinary(num) {
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     let str = '';
     let newStr = '';
     let temp = num;
@@ -234,6 +270,9 @@ function convertDecimalToBinary(num) {
 }
 
 function convertBinaryToDecimal(num) {
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     let temp = num;
     let sum = 0;
     let i = 0;
@@ -270,7 +309,7 @@ let myFilterCountDouble = (collection, callback) => {
     return count;
 }
 
-function countNumberOfSimpleElementsDoubleArray(arr) {
+function countNumberSimpleElementsDoubleArray(arr) {
     let count = 0;
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr[i].length; j++) {
@@ -292,10 +331,13 @@ function countNumberOfSimpleElementsDoubleArray(arr) {
 }
 
 // 13. Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные)
-function sumValuesBetveenMinMax(min, max) {
+function sumValuesBetveenMinMax(min, max, callback) {
+    if (typeof (min && max) !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     let sum = 0;
     for (let i = min; i <= max; i++) {
-        if (i % 3 == 0 && i > 0) {
+        if (callback(i)) {
             sum += i;
         }
     }
@@ -362,8 +404,8 @@ function findMeanDoubleArrey(arr, callback) {
 
 // 15. Транспонировать матрицу, сложить две матрицы.
 function transMatrix(arr) {
-    if (arr.length == 0) {
-        return 0;
+    if (arr.length === 0) {
+        throw new Error('Error, array of zero length');
     }
     let newTransArr = [];
     for (let i = 0; i < arr[0].length; i++) {
@@ -376,8 +418,8 @@ function transMatrix(arr) {
 }
 
 function additionMatrix(arrOne, arrTwo) {
-    if (arrOne.length == 0 || arrTwo.length == 0) {
-        return 0;
+    if (arrOne.length === 0 || arrTwo.length === 0) {
+        throw new Error('Error, arrays of different lengths');
     }
     let newArrey = [];
     for (let i = 0; i < arrOne.length; i++) {
@@ -443,17 +485,20 @@ function sumUnderMainDiagonal(arr) {
 // 18. Создать итерируемый объект, который на каждой итерации возвращает следующее значение числа фибоначчи
 // (Реализовать с помощью итератора и генератора). Реализовать мемоизированную функцию. Реализовать с помощью рекурсии
 function* fibonachi() {
-    let first = 0;
-    let second = 1;
+    let previous = 0;
+    let current = 1;
     while (true) {
-        let third = first + second;
-        first = second;
-        second = third;
-        yield second;
+        let next = previous + current;
+        previous = current;
+        current = next;
+        yield current;
     }
 }
 
 function numFibonachiRecurs(num) {
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     if (num <= 1) {
         return num;
     }
@@ -493,18 +538,20 @@ function* changeTrafficLight() {
 // 20. Определить является ли число отрицательным или положительным без сравнения на больше/меньше нуля. 
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
 function determingSignNumber(num) {
-    if (num >> 31 === 0) {
-        return true;
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
     }
-    return false;
+    return (num >> 31 === 0);
 }
 
 function numberBitsEqual(num) {
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
+    }
     let countOne = 0;
     let countNul = 0;
-    num = convertDecimalToBinary(num);
-    for (let i = 0; i < num.length; i++) {
-        if (num[i] == 1) {
+    for (let i = 0; i < 30; i++) {
+        if (((num >> i) & 1) === 1) {
             countOne++;
         }
     }
@@ -513,13 +560,15 @@ function numberBitsEqual(num) {
 }
 
 function tilde(num) {
-    let newNum = [];
-    for (let i = 0; i < num.length; i++) {
-        if (num[i] === '1') {
-            newNum[i] = 0;
-        } else {
-            newNum[i] = 1;
-        }
+    if (typeof num !== 'number') {
+        throw new Error('Error, passed not a number');
     }
-    return newNum.join('');
+    let newNum = 0;
+    for (let i = 0; i < 30; i++) {
+        if (((num >> i) | 0) === 0) {
+            newNum != 1(1 << i);
+        }
+        newNum != 0;
+    }
+    return newNum;
 }
