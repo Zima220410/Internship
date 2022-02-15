@@ -9,23 +9,24 @@ function stringsAreAnagram(strOne, strTwo) {
             arrOne[i] = strOne[i];
             arrTwo[i] = strTwo[i];
         }
-        let temp1;
-        let temp2;
         for (let i = 0; i < arrOne.length; i++) {
             for (let j = 0; j < arrOne.length - 1; j++) {
                 if (arrOne[j] > arrOne[j + 1]) {
+                    let temp1;
                     temp1 = arrOne[j];
                     arrOne[j] = arrOne[j + 1];
                     arrOne[j + 1] = temp1;
                 }
                 if (arrTwo[j] > arrTwo[j + 1]) {
+                    let temp2;
                     temp2 = arrTwo[j];
                     arrTwo[j] = arrTwo[j + 1];
                     arrTwo[j + 1] = temp2;
                 }
             }
         }
-        let resOne = '', resTwo = '';
+        let resOne = '';
+        let resTwo = '';
         for (let i = 0; i < arrOne.length; i++) {
             resOne += arrOne[i];
             resTwo += arrTwo[i];
@@ -201,13 +202,12 @@ let findFactorialMemo = (function () {
         let value;
         if (i in memo) {
             return memo[i];
-        } else {
-            if (i === 1) {
-                value = i;
-            }
-            value = i * memoryCreation(i - 1);
-            memo[i] = value;
         }
+        if (i === 1) {
+            value = i;
+        }
+        value = i * memoryCreation(i - 1);
+        memo[i] = value;
         return value;
     }
     return memoryCreation;
@@ -226,7 +226,7 @@ let myFilterSum = (collection, callback) => {
 
 // 9. Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные),
 // реализовать с помощью рекурсии для одномерного массива.
-function sumElArrMultiplaceTwo(callback, arr, index = arr.length - 1) {
+function sumElArrMultiplaceTwo(arr, index, callback) {
     if (index === 0) {
         if (callback) {
             return arr[0];
@@ -234,10 +234,10 @@ function sumElArrMultiplaceTwo(callback, arr, index = arr.length - 1) {
         return 0;
     } else {
         if (callback) {
-            return arr[index] + sumElArrMultiplaceTwo(callback, arr, index - 1);
+            return arr[index] + sumElArrMultiplaceTwo(arr, index - 1);
         }
     }
-    return sumElArrMultiplaceTwo(callback, arr, index - 1);
+    return sumElArrMultiplaceTwo(arr, index - 1);
 }
 
 // 10. Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа)
@@ -256,17 +256,12 @@ function convertDecimalToBinary(num) {
     if (typeof num !== 'number') {
         throw new Error('Error, passed not a number');
     }
-    let str = '';
-    let newStr = '';
-    let temp = num;
-    while (temp > 0) {
-        str = str + temp % 2;
-        temp = Math.floor(temp / 2);
+    let binary = '';
+    while (num > 0) {
+        binary = (num % 2) + binary;
+        num = Math.floor(num / 2);
     }
-    for (let i = str.length - 1; i >= 0; i--) {
-        newStr += str[i];
-    }
-    return newStr;
+    return binary;
 }
 
 function convertBinaryToDecimal(num) {
@@ -357,18 +352,16 @@ let sumValuesBetveenMinMaxMemo = (function () {
     function memoryCreation(min, max) {
         if (max in memo) {
             return memo[max];
-        } else {
-            if (min <= max) {
-                if (max % 3 == 0 && max > 0) {
-                    value = max + memoryCreation(min, max - 1);
-                    memo[max] = value;
-                    return value;
-                }
-                value = memoryCreation(min, max - 1);
+        }
+        if (min <= max) {
+            if (max % 3 == 0 && max > 0) {
+                value = max + memoryCreation(min, max - 1);
                 memo[max] = value;
                 return value;
             }
-            return 0;
+            value = memoryCreation(min, max - 1);
+            memo[max] = value;
+            return value;
         }
     }
     return memoryCreation;
@@ -407,14 +400,14 @@ function transMatrix(arr) {
     if (arr.length === 0) {
         throw new Error('Error, array of zero length');
     }
-    let newTransArr = [];
+    let newArray = [];
     for (let i = 0; i < arr[0].length; i++) {
-        newTransArr[i] = [];
+        newArray[i] = [];
         for (let j = 0; j < arr.length; j++) {
-            newTransArr[i][j] = arr[j][i];
+            newArray[i][j] = arr[j][i];
         }
     }
-    return newTransArr;
+    return newArray;
 }
 
 function additionMatrix(arrOne, arrTwo) {
@@ -511,14 +504,13 @@ let numFibonachiMemo = (function () {
         let value;
         if (i in memo) {
             return memo[i];
-        } else {
-            if (i <= 1) {
-                value = i;
-            } else {
-                value = memoryCreation(i - 1) + memoryCreation(i - 2);
-                memo[i] = value;
-            }
         }
+        if (i <= 1) {
+            value = i;
+        } else {
+            value = memoryCreation(i - 1) + memoryCreation(i - 2);
+            memo[i] = value;
+        }    
         return value;
     }
     return memoryCreation;
@@ -549,13 +541,12 @@ function numberBitsEqual(num) {
         throw new Error('Error, passed not a number');
     }
     let countOne = 0;
-    let countNul = 0;
     for (let i = 0; i < 30; i++) {
         if (((num >> i) & 1) === 1) {
             countOne++;
         }
     }
-    countNul = 32 - countOne;
+    let countNul = 32 - countOne;
     return { countOne, countNul };
 }
 
@@ -565,10 +556,10 @@ function tilde(num) {
     }
     let newNum = 0;
     for (let i = 0; i < 30; i++) {
-        if (((num >> i) | 0) === 0) {
-            newNum != 1(1 << i);
+        if (((num >> i) & 1) !== 1) {
+            newNum |= 1(1 << i);
         }
-        newNum != 0;
+        newNum |= (1<<i);
     }
     return newNum;
 }
