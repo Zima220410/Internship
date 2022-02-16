@@ -1,7 +1,7 @@
 // 1..... Написать функцию которая проверяет являются две строки анаграммой или нет
 function stringsAreAnagram(strOne, strTwo) {
     if (typeof strOne !== 'string' && strTwo !== 'string') {
-        throw new Error('Error, passed not a string');
+        throw new Error('Error, argument is not a string');
     }
     if (strOne.length !== strTwo.length) {
         return false;
@@ -14,8 +14,8 @@ function stringsAreAnagram(strOne, strTwo) {
             }
         }
         let lengthTwo = 0;
-        for (let k = 0; k < strOne.length; k++) {
-            if (strOne[i] === strTwo[k]) {
+        for (let j = 0; j < strOne.length; j++) {
+            if (strOne[i] === strTwo[j]) {
                 lengthTwo++;
             }
         }
@@ -29,7 +29,7 @@ function stringsAreAnagram(strOne, strTwo) {
 // 3. Написать функцию которая вычисляет подсчет количество цифр в числе. 
 function findLengthNumber(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     let count = 1;
     while ((num /= 10) >= 1) {
@@ -42,7 +42,7 @@ function findLengthNumber(num) {
 function findLengthNumberRecurs(num, count) {
     count = count || 1;
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     if ((num /= 10) >= 1) {
         return findLengthNumberRecurs(num, ++count);
@@ -53,7 +53,7 @@ function findLengthNumberRecurs(num, count) {
 // 4.... Реализовать функцию которая проверяет, является ли строка палиндромом.
 function isStringPalindrom(str) {
     if (typeof str !== 'string') {
-        throw new Error('Error, passed not a string');
+        throw new Error('Error, argument is not a string');
     }
     for (let i = 0; i <= str.length; i++) {
         if (str[i] !== str[str.length - 1 - i]) {
@@ -66,20 +66,7 @@ function isStringPalindrom(str) {
 // 5.... Написать функцию которая вычисляет подсчет уникальных слов в предложении
 function numberUniqueWords(str) {
     if (typeof str !== 'string') {
-        throw new Error('Error, passed not a string');
-    }
-    let arr = sortSplitArrey(str);
-    let obj = getObjUniqueWords(arr);
-    let count = 0;
-    for (let item in obj) {
-        count++;
-    }
-    return count;
-}
-
-function sortSplitArrey(str) {
-    if (typeof str !== 'string') {
-        throw new Error('Error, passed not a string');
+        throw new Error('Error, argument is not a string');
     }
     let arr = [];
     let temp = '';
@@ -93,10 +80,6 @@ function sortSplitArrey(str) {
         }
         temp += str[i];
     }
-    return arr;
-}
-
-function getObjUniqueWords(arr) {
     let obj = {};
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] in obj) {
@@ -104,7 +87,11 @@ function getObjUniqueWords(arr) {
         }
         obj[arr[i]] = 1;
     }
-    return obj;
+    let count = 0;
+    for (let item in obj) {
+        count++;
+    }
+    return count;
 }
 
 // 6..... Написать функцию которая вычисляет вхождение каждого слова в предложение
@@ -163,7 +150,7 @@ class Circle {
 // 8. Вычислить факториал числа.
 function getFactorial(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     let result = num;
     for (let i = num - 1; i > 0; i--) {
@@ -175,7 +162,7 @@ function getFactorial(num) {
 // 8. Вычислить факториал числа. Реализовать с помощью рекурсии.
 function findFactorialNum(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     if (num != 1) {
         return num * findFactorialNum(num - 1);
@@ -183,19 +170,18 @@ function findFactorialNum(num) {
     return num;
 }
 
-// 8. Реализовать мемоизированную функцию вычисления факториала.
+// 8....... Реализовать мемоизированную функцию вычисления факториала.
 let findFactorialMemo = (function () {
     let memo = {};
-    function memoryCreation(i) {
-        let value;
-        if (i in memo) {
-            return memo[i];
+    function memoryCreation(item) {
+        if (item in memo) {
+            return memo[item];
         }
-        if (i === 1) {
-            value = i;
+        if (item === 1) {
+            return item;
         }
-        value = i * memoryCreation(i - 1);
-        memo[i] = value;
+        let value = item * memoryCreation(item - 1);
+        memo[item] = value;
         return value;
     }
     return memoryCreation;
@@ -243,7 +229,7 @@ let myFilterCounter = (collection, callback) => {
 // 11. Написать функции которые преобразовывают число из десятичной системы счисления в двоичную и в обратную сторону.
 function convertDecimalToBinary(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     let binary = '';
     while (num > 0) {
@@ -255,7 +241,7 @@ function convertDecimalToBinary(num) {
 
 function convertBinaryToDecimal(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     let temp = num;
     let sum = 0;
@@ -317,7 +303,7 @@ function countNumberSimpleElementsDoubleArray(arr) {
 // 13. Посчитать сумму значений чисел от min до max (всех, только тех которые кратны 3, только положительные)
 function sumValuesBetveenMinMax(min, max, callback) {
     if (typeof (min && max) !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     let sum = 0;
     for (let i = min; i <= max; i++) {
@@ -330,10 +316,13 @@ function sumValuesBetveenMinMax(min, max, callback) {
 
 // Реализовать также с помощью рекурсии.
 function sumValuesBetveenMinMaxRec(min, max, callback) {
-    if (callback) {
-        return max + sumValuesBetveenMinMaxRec(min, max - 1);
+    if (min <= max) {
+        if (callback(max)) {
+            return max + sumValuesBetveenMinMaxRec(min, max - 1, callback);
+        }
+        return sumValuesBetveenMinMaxRec(min, max - 1, callback);
     }
-    return sumValuesBetveenMinMaxRec(min, max - 1);
+    return 0;
 }
 
 let sumValuesBetveenMinMaxMemo = (function () {
@@ -352,6 +341,7 @@ let sumValuesBetveenMinMaxMemo = (function () {
             memo[max] = value;
             return value;
         }
+        return 0;
     }
     return memoryCreation;
 })();
@@ -375,7 +365,7 @@ function findMeanDoubleArrey(arr, callback) {
     let count = 0;
     for (let i = 0; i < arr.length; i++) {
         for (let j = 0; j < arr[i].length; j++) {
-            if (callback) {
+            if (callback(arr[i][j])) {
                 sum += arr[i][j];
                 count++;
             }
@@ -479,7 +469,7 @@ function* fibonachi() {
 
 function numFibonachiRecurs(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     if (num <= 1) {
         return num;
@@ -520,14 +510,14 @@ function* changeTrafficLight() {
 // Посчитать количество битов числа которые установлены в единицу и которые установлены в 0. Написать свою реализацию для ~, двумя способами.
 function determingSignNumber(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     return (num >> 31 === 0);
 }
 
 function numberBitsEqual(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     let countOne = 0;
     for (let i = 0; i < 30; i++) {
@@ -541,12 +531,12 @@ function numberBitsEqual(num) {
 
 function tilde(num) {
     if (typeof num !== 'number') {
-        throw new Error('Error, passed not a number');
+        throw new Error('Error, argument is not a number');
     }
     let newNum = 0;
     for (let i = 0; i < 30; i++) {
         if (((num >> i) & 1) !== 1) {
-            newNum |= 1(1 << i);
+            newNum |= (1 << i);
         }
         newNum |= (1 << i);
     }
