@@ -532,3 +532,6 @@ function numberBitsEqual(num) {
 function tilde(num) {
     return -num ^ 1;
 }
+function tildeTwo(num) {
+    return -num -1;
+}
