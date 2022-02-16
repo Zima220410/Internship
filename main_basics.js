@@ -530,12 +530,5 @@ function numberBitsEqual(num) {
 }
 
 function tilde(num) {
-    if (typeof num !== 'number') {
-        throw new Error('Error, argument is not a number');
-    }
-    let modifiedNumber = 0;
-    for (let i = 0; i < 32; i++) {
-        modifiedNumber ^= (1 << i);
-    }
-    return modifiedNumber;
+    return -num ^ 1;
 }
