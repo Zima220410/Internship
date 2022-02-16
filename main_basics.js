@@ -533,12 +533,9 @@ function tilde(num) {
     if (typeof num !== 'number') {
         throw new Error('Error, argument is not a number');
     }
-    let newNum = 0;
-    for (let i = 0; i < 30; i++) {
-        if (((num >> i) & 1) !== 1) {
-            newNum |= (1 << i);
-        }
-        newNum |= (1 << i);
+    let modifiedNumber = 0;
+    for (let i = 0; i < 32; i++) {
+        modifiedNumber ^= (1 << i);
     }
-    return newNum;
+    return modifiedNumber;
 }
