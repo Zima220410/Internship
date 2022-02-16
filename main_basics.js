@@ -3,39 +3,27 @@ function stringsAreAnagram(strOne, strTwo) {
     if (typeof strOne !== 'string' && strTwo !== 'string') {
         throw new Error('Error, passed not a string');
     }
-    if (strOne.length === strTwo.length) {
-        let arrOne = [], arrTwo = [];
-        for (let i = 0; i < strOne.length; i++) {
-            arrOne[i] = strOne[i];
-            arrTwo[i] = strTwo[i];
-        }
-        for (let i = 0; i < arrOne.length; i++) {
-            for (let j = 0; j < arrOne.length - 1; j++) {
-                if (arrOne[j] > arrOne[j + 1]) {
-                    let temp1;
-                    temp1 = arrOne[j];
-                    arrOne[j] = arrOne[j + 1];
-                    arrOne[j + 1] = temp1;
-                }
-                if (arrTwo[j] > arrTwo[j + 1]) {
-                    let temp2;
-                    temp2 = arrTwo[j];
-                    arrTwo[j] = arrTwo[j + 1];
-                    arrTwo[j + 1] = temp2;
-                }
+    if (strOne.length !== strTwo.length) {
+        return false;
+    }
+    for (let i = 0; i < strOne.length; i++) {
+        let lengthOne = 0;
+        for (let j = 0; j < strOne.length; j++) {
+            if (strOne[i] === strOne[j]) {
+                lengthOne++;
             }
         }
-        let resOne = '';
-        let resTwo = '';
-        for (let i = 0; i < arrOne.length; i++) {
-            resOne += arrOne[i];
-            resTwo += arrTwo[i];
+        let lengthTwo = 0;
+        for (let k = 0; k < strOne.length; k++) {
+            if (strOne[i] === strTwo[k]) {
+                lengthTwo++;
+            }
         }
-        if (resOne === resTwo) {
-            return true;
+        if (lengthOne !== lengthTwo) {
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 // 3. Написать функцию которая вычисляет подсчет количество цифр в числе. 
@@ -226,18 +214,19 @@ let myFilterSum = (collection, callback) => {
 
 // 9. Посчитать сумму всех элементов массива, только тех которые (Кратные двум, кратные трем, которые только положительные и нечетные),
 // реализовать с помощью рекурсии для одномерного массива.
-function sumElArrMultiplaceTwo(arr, index, callback) {
-    if (index === 0) {
-        if (callback) {
-            return arr[0];
+function sumElArrMultiplaceTwo(arr, callback, index) {
+    index = index || 0;
+    if (index === arr.length) {
+        if (callback(arr[index])) {
+            return arr[arr.length];
         }
         return 0;
     } else {
-        if (callback) {
-            return arr[index] + sumElArrMultiplaceTwo(arr, index - 1);
+        if (callback(arr[index])) {
+            return arr[index] + sumElArrMultiplaceTwo(arr, callback, ++index);
         }
     }
-    return sumElArrMultiplaceTwo(arr, index - 1);
+    return sumElArrMultiplaceTwo(arr, callback, ++index);
 }
 
 // 10. Посчитать количество элементов массива которые (Нулевые, отрицательные, положительные, простые числа)
@@ -311,12 +300,12 @@ function countNumberSimpleElementsDoubleArray(arr) {
             if (arr[i][j] > 1) {
                 let flag = true;
                 for (let k = 2; k < arr[i][j]; k++) {
-                    if (arr[i][j] % k == 0) {
+                    if (arr[i][j] % k === 0) {
                         flag = false;
                         break;
                     }
                 }
-                if (flag == true) {
+                if (flag === true) {
                     count++;
                 }
             }
@@ -510,7 +499,7 @@ let numFibonachiMemo = (function () {
         } else {
             value = memoryCreation(i - 1) + memoryCreation(i - 2);
             memo[i] = value;
-        }    
+        }
         return value;
     }
     return memoryCreation;
@@ -559,7 +548,7 @@ function tilde(num) {
         if (((num >> i) & 1) !== 1) {
             newNum |= 1(1 << i);
         }
-        newNum |= (1<<i);
+        newNum |= (1 << i);
     }
     return newNum;
 }
