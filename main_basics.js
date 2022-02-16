@@ -532,6 +532,14 @@ function numberBitsEqual(num) {
 function tilde(num) {
     return -num ^ 1;
 }
+
 function tildeTwo(num) {
     return -num -1;
+}
+
+function tildeThree(num){
+    for (let i = 0; i < 32; i++) {
+        num ^= (1 << i);
+    }
+    return num;
 }
