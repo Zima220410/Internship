@@ -1,26 +1,29 @@
-// Bind
-function myBind(fn, context, ...rest) {
+Function.prototype.myBind = function (context, ...rest) {
+    let callback = this;
     return function (...args) {
         let id = Math.random().toString();
-        context[id] = fn;
+        context[id] = callback;
         let result = context[id](...rest, ...args);
         delete context[id];
         return result;
     }
 }
 
-// Call
-function myCall(fn, context, ...args) {
+Function.prototype.myCall = function (context, ...args) {
+    let callback = this;
     let id = Math.random().toString();
-    context[id] = fn;
+    context[id] = callback;
     let result = context[id](...args);
     delete context[id];
-    return result;
+    return result
 }
 
 // forEach
 Array.prototype.myForEach = function (callback) {
     let arr = this;
+    if (!Array.isArray(arr)) {
+        throw new Error('Error, argument is not arrey');
+    }
     for (let i = 0; i < arr.length; i++) {
         callback(arr[i], i, arr);
     }
@@ -30,6 +33,9 @@ Array.prototype.myForEach = function (callback) {
 Array.prototype.myFilter = function (callback) {
     let result = [];
     let arr = this;
+    if (!Array.isArray(arr)) {
+        throw new Error('Error, argument is not arrey');
+    }
     for (let i = 0; i < arr.length; i++) {
         if (callback(arr[i], i, arr)) {
             result.push(arr[i]);
@@ -42,6 +48,9 @@ Array.prototype.myFilter = function (callback) {
 Array.prototype.myMap = function (callback) {
     let result = [];
     let arr = this;
+    if (!Array.isArray(arr)) {
+        throw new Error('Error, argument is not arrey');
+    }
     for (let i = 0; i < arr.length; i++) {
         result[i] = callback(arr[i], i, arr);
     }
@@ -49,11 +58,14 @@ Array.prototype.myMap = function (callback) {
 }
 
 //Find
-Array.prototype.myFind = function(callback) {
+Array.prototype.myFind = function (callback) {
     let arr = this;
+    if (!Array.isArray(arr)) {
+        throw new Error('Error, argument is not arrey');
+    }
     for (let i = 0; i < arr.length; i++) {
-        if (callback(arr[i], i, arr)){
-            return true;
+        if (callback(arr[i], i, arr)) {
+            return arr[i];
         }
     }
 }
@@ -61,7 +73,10 @@ Array.prototype.myFind = function(callback) {
 // Reduce
 Array.prototype.myReduce = function (fn, result) {
     let arr = this;
-    for(let i = 0; i < arr.length; i++) {
+    if (!Array.isArray(arr)) {
+        throw new Error('Error, argument is not arrey');
+    }
+    for (let i = 0; i < arr.length; i++) {
         result = fn(result, arr[i], i, arr);
     }
     return result;
