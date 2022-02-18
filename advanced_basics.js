@@ -2,7 +2,7 @@
 Function.prototype.myBind = function (context, ...rest) {
     let callback = this;
     return function (...args) {
-        let id = Math.random().toString();
+        let id = Symbol();
         context[id] = callback;
         let result = context[id](...rest, ...args);
         delete context[id];
@@ -13,7 +13,7 @@ Function.prototype.myBind = function (context, ...rest) {
 // Call
 Function.prototype.myCall = function (context, ...args) {
     let callback = this;
-    let id = Math.random().toString();
+    let id = Symbol();
     context[id] = callback;
     let result = context[id](...args);
     delete context[id];
