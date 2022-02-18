@@ -1,3 +1,4 @@
+// Bind
 Function.prototype.myBind = function (context, ...rest) {
     let callback = this;
     return function (...args) {
@@ -9,6 +10,7 @@ Function.prototype.myBind = function (context, ...rest) {
     }
 }
 
+// Call
 Function.prototype.myCall = function (context, ...args) {
     let callback = this;
     let id = Math.random().toString();
@@ -20,25 +22,23 @@ Function.prototype.myCall = function (context, ...args) {
 
 // forEach
 Array.prototype.myForEach = function (callback) {
-    let arr = this;
-    if (!Array.isArray(arr)) {
+    if (!Array.isArray(this)) {
         throw new Error('Error, argument is not arrey');
     }
-    for (let i = 0; i < arr.length; i++) {
-        callback(arr[i], i, arr);
+    for (let i = 0; i < this.length; i++) {
+        callback(this[i], i, this);
     }
 }
 
 // Filter
 Array.prototype.myFilter = function (callback) {
-    let result = [];
-    let arr = this;
-    if (!Array.isArray(arr)) {
+    if (!Array.isArray(this)) {
         throw new Error('Error, argument is not arrey');
     }
-    for (let i = 0; i < arr.length; i++) {
-        if (callback(arr[i], i, arr)) {
-            result.push(arr[i]);
+    let result = [];
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i], i, this)) {
+            result.push(this[i]);
         }
     }
     return result;
@@ -46,38 +46,35 @@ Array.prototype.myFilter = function (callback) {
 
 //Map
 Array.prototype.myMap = function (callback) {
-    let result = [];
-    let arr = this;
-    if (!Array.isArray(arr)) {
+    if (!Array.isArray(this)) {
         throw new Error('Error, argument is not arrey');
     }
-    for (let i = 0; i < arr.length; i++) {
-        result[i] = callback(arr[i], i, arr);
+    let result = [];
+    for (let i = 0; i < this.length; i++) {
+        result[i] = callback(this[i], i, this);
     }
     return result;
 }
 
 //Find
 Array.prototype.myFind = function (callback) {
-    let arr = this;
-    if (!Array.isArray(arr)) {
+    if (!Array.isArray(this)) {
         throw new Error('Error, argument is not arrey');
     }
-    for (let i = 0; i < arr.length; i++) {
-        if (callback(arr[i], i, arr)) {
-            return arr[i];
+    for (let i = 0; i < this.length; i++) {
+        if (callback(this[i], i, this)) {
+            return this[i];
         }
     }
 }
 
 // Reduce
-Array.prototype.myReduce = function (fn, result) {
-    let arr = this;
-    if (!Array.isArray(arr)) {
+Array.prototype.myReduce = function (callback, result) {
+    if (!Array.isArray(this)) {
         throw new Error('Error, argument is not arrey');
     }
-    for (let i = 0; i < arr.length; i++) {
-        result = fn(result, arr[i], i, arr);
+    for (let i = 0; i < this.length; i++) {
+        result = callback(result, this[i], i, this);
     }
     return result;
 }
