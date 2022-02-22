@@ -7,23 +7,24 @@ class Node {
 
     insert(data){
         let newNode = new Node(data);
-        this.insertNode(this.data, newNode);
+        if (this.data === null){
+            this.data = newNode;
+        } else {
+            this.nodeEntry(this.data, newNode);
+        }
     }
 
-    insertNode(data, newNode) {
+    nodeEntry(data, newNode) {
         if (this.data < newNode.data) {
             if (this.right === null) {
                 return this.right = newNode;
-            } else {
-                return this.right.insertNode(data, newNode);
-
             }
+            return this.right.nodeEntry(data, newNode);
         } else {
             if (this.left === null) {
                 return this.left = newNode;
-            } else {
-                return this.left.insertNode(data, newNode);
             }
+            return this.left.nodeEntry(data, newNode);
         }
     }
 
@@ -36,10 +37,9 @@ class Node {
             if (this.right !== null) {
                 return this.right.search(data);
             }
-        } else {
-            if (this.left !== null) {
-                return this.left.search(data);
-            }
+        }
+        if (this.left !== null) {
+            return this.left.search(data);
         }
     }
 
