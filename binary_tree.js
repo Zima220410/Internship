@@ -10,37 +10,35 @@ class Node {
         if (this.data === null){
             this.data = newNode;
         } else {
-            this.nodeEntry(this.data, newNode);
+            this.entry(this.data, newNode);
         }
     }
 
-    nodeEntry(data, newNode) {
+    entry(data, newNode) {
         if (this.data < newNode.data) {
             if (this.right === null) {
                 return this.right = newNode;
             }
-            return this.right.nodeEntry(data, newNode);
+            return this.right.entry(data, newNode);
         } else {
             if (this.left === null) {
                 return this.left = newNode;
             }
-            return this.left.nodeEntry(data, newNode);
+            return this.left.entry(data, newNode);
         }
     }
 
     search(data) {
         if (this.data === null) {
             return null;
-        } else if (this.data === data) {
+        }
+        if (this.data === data) {
             return this.data;
-        } else if (this.data < data) {
-            if (this.right !== null) {
-                return this.right.search(data);
-            }
         }
-        if (this.left !== null) {
-            return this.left.search(data);
+        if (this.data < data && this.right !== null) {
+            return this.right.search(data);
         }
+        return this.left.search(data);    
     }
 
     delete(data) {
