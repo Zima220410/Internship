@@ -5,20 +5,24 @@ class Node {
         this.right = null;
     }
 
-    insert(data) {
+    insert(data){
         let newNode = new Node(data);
+        this.insertNode(this.data, newNode);
+    }
+
+    insertNode(data, newNode) {
         if (this.data < newNode.data) {
             if (this.right === null) {
                 return this.right = newNode;
             } else {
-                return this.right.insert(data);
+                return this.right.insertNode(data, newNode);
 
             }
         } else {
             if (this.left === null) {
                 return this.left = newNode;
             } else {
-                return this.left.insert(data);
+                return this.left.insertNode(data, newNode);
             }
         }
     }
@@ -36,7 +40,6 @@ class Node {
             if (this.left !== null) {
                 return this.left.search(data);
             }
-
         }
     }
 
