@@ -1,6 +1,6 @@
 class Node {
     constructor(data, left, right) {
-        this.data = data;
+        this.data = data ?? null;
         this.left = null;
         this.right = null;
     }
@@ -8,7 +8,7 @@ class Node {
     insert(data){
         let newNode = new Node(data);
         if (this.data === null){
-            this.data = newNode;
+            this.data = data;
         } else {
             this.entry(this.data, newNode);
         }
