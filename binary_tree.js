@@ -1,30 +1,26 @@
 class Node {
-    constructor(data, left, right) {
-        this.data = data ?? null;
+    constructor() {
+        this.data = null;
         this.left = null;
         this.right = null;
     }
 
-    insert(data){
-        let newNode = new Node(data);
-        if (this.data === null){
-            this.data = data;
-        } else {
-            this.entry(this.data, newNode);
+    insert(data, currentNode) {
+        currentNode = currentNode || this;
+        if (currentNode.data === null) {
+            currentNode.data = data;
+            return true;
         }
-    }
-
-    entry(data, newNode) {
-        if (this.data < newNode.data) {
-            if (this.right === null) {
-                return this.right = newNode;
+        if (data > currentNode.data) {
+            if (currentNode.right === null) {
+                currentNode.right = new Node();
             }
-            return this.right.entry(data, newNode);
+            return this.insert(data, currentNode.right);
         } else {
-            if (this.left === null) {
-                return this.left = newNode;
+            if (currentNode.left === null) {
+                currentNode.left = new Node();
             }
-            return this.left.entry(data, newNode);
+            return this.insert(data, currentNode.left);
         }
     }
 
